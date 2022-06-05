@@ -3,22 +3,26 @@ sciezka = ${HOME}/zadanie2
 .PHONY: clean
 .SUFFIXES: .c .o .a .so
 
+vpath %.c src
+vpath %.h include
+vpath %.so lib
+vpath %.a lib
+
 main: main.o libV.so libP.a
-	gcc -L${sciezka} -Wl,-rpath=${sciezka} -o $@ $< -lV -lP
+	gcc -L${sciezka}/lib -Wl,-rpath=${sciezka}/lib -o $@ $< -lV -lP
 	
-.c.o:
-	gcc -c $<
-	
- .o:
-	gcc -o $@ $^
+%.o: %.c
+	gcc -c $< -I ${sciezka}/include
 
 libV.so: V.o
-	gcc -shared -o $@ $^
+	mkdir ${sciezka}/lib
+	gcc -shared -o lib/$@ $^
 	
 libP.a: P.o
-	ar cr $@ $^
+	ar cr lib/$@ $^
 	
 
 	
 clean:
-	rm main main.o libV.so libP.a V.o P.o
+	rm main *.o 
+	rm -r lib

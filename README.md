@@ -27,3 +27,7 @@ Added source files and README.md
 Added simple makefile
 ### Commit 3 
 Added automatic variables to makefile
+### Commit 4
+Added suffix rules to makefile
+### Commit 5
+Added tree structure and pattern rules to makefile
